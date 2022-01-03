@@ -1,0 +1,82 @@
+--tolerance_usecs=100000
+--ip_version=ipv4
+--mtu=1500
+
+ 0.0 `sysctl -i net.inet.sctp.initial_cwnd=10`
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_enable=1`
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_ipv4_min_mtu=76`
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_search_algorithm=2` // OptBinary
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_max_probes=3`
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_min_probe_rtx_time=1000`
+ 0.0 `sysctl -i net.inet.tcp.hostcache.purgenow=1`
+
+// Create a non-blocking 1-to-1 style socket
++0.0 socket(..., SOCK_STREAM, IPPROTO_SCTP) = 3
++0.0 fcntl(3, F_SETFL, O_RDWR | O_NONBLOCK) = 0
++0.0 connect(3, ..., ...) = -1 EINPROGRESS (Operation now in progress)
+
+// Trigger the active associtation setup
++0.0 > sctp: INIT[flgs=0, tag=1, a_rwnd=..., os=..., is=..., tsn=1, ...]
++0.1 < sctp: INIT_ACK[flgs=0, tag=2, a_rwnd=99999, os=1, is=1, tsn=1, STATE_COOKIE[len=4, val=...]]
++0.0 > sctp: COOKIE_ECHO[flgs=0, len=..., val=...]
++0.1 < sctp: COOKIE_ACK[flgs=0]
+
+// Check if the setup was sucessful
++0.0 getsockopt(3, SOL_SOCKET, SO_ERROR, [0], [4]) = 0
+
+// probe for 1200
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1124, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1500
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1424, val=...]
+// fails
+
+// probe for 1352
++0.215 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1276, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1428
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1352, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1464
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1388, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1484
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1408, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1492
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1416, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1496
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1420, val=...]
+// fails
+
+// probe for 1496
++0.130 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1420, val=...]
+// fails
+
+// probe for 1496
++1.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1420, val=...]
+// fails
+
++2.0 close(3) = 0
+//Shutdown
++0.0 > sctp: SHUTDOWN[flgs=0, cum_tsn=0]
++0.0 < sctp: SHUTDOWN_ACK[flgs=0]
++0.0 > sctp: SHUTDOWN_COMPLETE[flgs=...]
+
