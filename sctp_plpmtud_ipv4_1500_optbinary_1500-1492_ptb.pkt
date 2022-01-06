@@ -4,7 +4,7 @@
 
  0.0 `sysctl -i net.inet.sctp.initial_cwnd=10`
  0.0 `sysctl -i net.inet.sctp.plpmtud_enable=1`
- 0.0 `sysctl -i net.inet.sctp.plpmtud_ipv4_min_mtu=76`
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_ipv4_min_mtu=576`
  0.0 `sysctl -i net.inet.sctp.plpmtud_search_algorithm=2` // OptBinary
  0.0 `sysctl -i net.inet.sctp.plpmtud_use_ptb=1`
  0.0 `sysctl -i net.inet.tcp.hostcache.purgenow=1`
@@ -25,12 +25,12 @@
 
 // probe for 1200
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1124, val=...]
+             PAD[flgs=0, len=1120, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1500
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1424, val=...]
+             PAD[flgs=0, len=1420, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // send bytes that result in an IP packet of 1504 byte
@@ -44,12 +44,12 @@
 
 // probe for 1200
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1124, val=...]
+             PAD[flgs=0, len=1120, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1492
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1416, val=...]
+             PAD[flgs=0, len=1412, val=...]
 +0.0 > sctp: DATA[flgs=E, len=20, tsn=2, sid=0, ssn=0, ppid=0]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 +0.0 < sctp: SACK[flgs=0, cum_tsn=0, a_rwnd=99999, gaps=[2:2], dups=[]]

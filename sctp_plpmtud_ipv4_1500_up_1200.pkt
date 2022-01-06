@@ -25,16 +25,16 @@
 
 // probe for 1200
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1124, val=...]
+             PAD[flgs=0, len=1120, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1204
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1128, val=...]
+             PAD[flgs=0, len=1124, val=...]
 +1.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1128, val=...]
+             PAD[flgs=0, len=1124, val=...]
 +1.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1128, val=...]
+             PAD[flgs=0, len=1124, val=...]
 
 +2.0 close(3) = 0
 //Shutdown

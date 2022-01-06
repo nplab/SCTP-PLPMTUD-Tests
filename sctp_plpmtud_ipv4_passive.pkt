@@ -20,7 +20,7 @@
 
 // probe for 1280
 +0.0 < sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=6, val=[0x00, 0x5]]];
-             PAD[flgs=0, len=1204, val=...]
+             PAD[flgs=0, len=1200, val=...]
 
 +0.0 > sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=6, val=[0x00, 0x5]]]
 

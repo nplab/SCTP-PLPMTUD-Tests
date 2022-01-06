@@ -23,7 +23,7 @@
 
 // probe for 1280
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1204, val=...]
+               PAD[flgs=0, len=1200, val=...]
 +0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // max_pmtu confirmed

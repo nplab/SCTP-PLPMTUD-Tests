@@ -26,52 +26,52 @@
 
 // probe for 1280
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1184, val=...]
+               PAD[flgs=0, len=1180, val=...]
 +0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1500
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1404, val=...]
+               PAD[flgs=0, len=1400, val=...]
 // fails
 
 // probe for 1392
 +0.215 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1296, val=...]
+               PAD[flgs=0, len=1292, val=...]
 +0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1448
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1352, val=...]
+               PAD[flgs=0, len=1348, val=...]
 +0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1476
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1380, val=...]
+               PAD[flgs=0, len=1376, val=...]
 +0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1488
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1388, val=...]
++0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
+// probe for 1496
++0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
+               PAD[flgs=0, len=1396, val=...]
+// fails
+
+// probe for 1492
++0.134 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
                PAD[flgs=0, len=1392, val=...]
 +0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1496
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1400, val=...]
-// fails
-
-// probe for 1492
-+0.134 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
                PAD[flgs=0, len=1396, val=...]
-+0.100 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
-
-// probe for 1496
-+0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1400, val=...]
 // fails
 
 // probe for 1496
 +0.130 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-               PAD[flgs=0, len=1400, val=...]
+               PAD[flgs=0, len=1396, val=...]
 // fails
 
 +2.0 close(3) = 0
