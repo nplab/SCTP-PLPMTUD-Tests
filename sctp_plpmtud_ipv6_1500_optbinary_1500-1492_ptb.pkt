@@ -1,10 +1,10 @@
 --tolerance_usecs=100000
---ip_version=ipv4
+--ip_version=ipv6
 --mtu=1500
 
  0.0 `sysctl -i net.inet.sctp.initial_cwnd=10`
  0.0 `sysctl -i net.inet.sctp.plpmtud_enable=1`
- 0.0 `sysctl -i net.inet.sctp.plpmtud_ipv4_min_mtu=576`
+ 0.0 `sysctl -i net.inet.sctp.plpmtud_ipv6_min_mtu=1280`
  0.0 `sysctl -i net.inet.sctp.plpmtud_search_algorithm=2` // OptBinary
  0.0 `sysctl -i net.inet.sctp.plpmtud_use_ptb=1`
  0.0 `sysctl -i net.inet.tcp.hostcache.purgenow=1`
@@ -23,38 +23,38 @@
 // Check if the setup was sucessful
 +0.0 getsockopt(3, SOL_SOCKET, SO_ERROR, [0], [4]) = 0
 
-// probe for 1200
+// probe for 1280
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1120, val=...]
+             PAD[flgs=0, len=1180, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1500
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1420, val=...]
+             PAD[flgs=0, len=1400, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // Disable nagle to avoid delay for the second DATA chunk
 +0.0 setsockopt(3, IPPROTO_SCTP, SCTP_NODELAY, [1], 4) = 0
 
 // send bytes that result in an IP packet of 1504 byte
-+0.1 write(3, ...,1456) = 1456
-+0.0 > sctp: DATA[flgs=B, len=1468, tsn=1, sid=0, ssn=0, ppid=0]
++0.1 write(3, ...,1436) = 1436
++0.0 > sctp: DATA[flgs=B, len=1448, tsn=1, sid=0, ssn=0, ppid=0]
 +0.0 > sctp: DATA[flgs=E, len=20, tsn=2, sid=0, ssn=0, ppid=0]
-+0.1 < [sctp(2)] icmp unreachable frag_needed mtu 1492
++0.1 < [sctp(2)] icmp packet_too_big mtu 1492
 
-// probe for 1200
+// probe for 1280
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1120, val=...]
+             PAD[flgs=0, len=1180, val=...]
 +0.0 < sctp: SACK[flgs=0, cum_tsn=0, a_rwnd=99999, gaps=[2:2], dups=[]]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // probe for 1492
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
-             PAD[flgs=0, len=1412, val=...]
+             PAD[flgs=0, len=1392, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
 
 // next packet gets fragmented on IP level (not supported by packetdrill)
-+0.7 > sctp: DATA[flgs=B, len=1468, tsn=1, sid=0, ssn=0, ppid=0]
++0.7 > sctp: DATA[flgs=B, len=1448, tsn=1, sid=0, ssn=0, ppid=0]
 +0.1 < sctp: SACK[flgs=0, cum_tsn=2, a_rwnd=99999, gaps=[], dups=[]]
 
 +1.0 close(3) = 0
