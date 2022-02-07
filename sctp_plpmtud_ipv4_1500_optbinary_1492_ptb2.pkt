@@ -31,12 +31,12 @@
 // probe for 1500
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
                PAD[flgs=0, len=1420, val=...]
-+0.080 < [sctp(2)] icmp unreachable frag_needed mtu 1496
++0.080 < icmp unreachable frag_needed mtu 1496 [sctp(2)]
 
 // probe for 1496
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
                PAD[flgs=0, len=1416, val=...]
-+0.080 < [sctp(2)] icmp unreachable frag_needed mtu 1492
++0.080 < icmp unreachable frag_needed mtu 1492 [sctp(2)]
 
 // probe for 1492
 +0.000 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];

@@ -40,7 +40,7 @@
 +0.1 write(3, ...,1436) = 1436
 +0.0 > sctp: DATA[flgs=B, len=1448, tsn=1, sid=0, ssn=0, ppid=0]
 +0.0 > sctp: DATA[flgs=E, len=20, tsn=2, sid=0, ssn=0, ppid=0]
-+0.1 < [sctp(2)] icmp packet_too_big mtu 1492
++0.1 < icmp packet_too_big mtu 1492 [sctp(2)]
 
 // probe for 1280
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
