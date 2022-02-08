@@ -45,17 +45,20 @@
 // probe for 1200
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
              PAD[flgs=0, len=1120, val=...]
+
+// immediately resend chunks sent in packets bigger than the reported MTU
+// this packet gets fragmented on IP level, not supported by packetdrill
++0.0 > sctp: DATA[flgs=B, len=1468, tsn=1, sid=0, ssn=0, ppid=0]
+
 +0.0 < sctp: SACK[flgs=0, cum_tsn=0, a_rwnd=99999, gaps=[2:2], dups=[]]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
+
++0.0 < sctp: SACK[flgs=0, cum_tsn=2, a_rwnd=99999, gaps=[], dups=[]]
 
 // probe for 1492
 +0.0 > sctp: HEARTBEAT[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]];
              PAD[flgs=0, len=1412, val=...]
 +0.1 < sctp: HEARTBEAT_ACK[flgs=0, HEARTBEAT_INFORMATION[len=..., val=...]]
-
-// next packet gets fragmented on IP level (not supported by packetdrill)
-+0.7 > sctp: DATA[flgs=B, len=1468, tsn=1, sid=0, ssn=0, ppid=0]
-+0.1 < sctp: SACK[flgs=0, cum_tsn=2, a_rwnd=99999, gaps=[], dups=[]]
 
 +1.0 close(3) = 0
 //Shutdown
